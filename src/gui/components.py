@@ -34,7 +34,8 @@ def build_checklist(list_id: str, header: str = None, *options: tuple[str, bool]
     # Формирование контейнера с заголовком и чек листом
     children = []
     if header: children.append(dbc.Label(header))
-    children.append(dbc.Checklist(options=options_list, id=list_id, inline=True))
+    checklist_style = {'display': 'grid', 'grid-template-columns': 'repeat(auto-fit, minmax(200px, 1fr))'}
+    children.append(dbc.Checklist(options=options_list, id=list_id, style=checklist_style))
 
     return html.Div(children)
 

@@ -1,4 +1,4 @@
-from dash import Dash, html, Input, Output, State, dash_table
+from dash import Dash, html, dash_table, dcc
 import dash_bootstrap_components as dbc
 
 from .components import build_navbar, build_progress_bar, build_checklist, build_toggle_container
@@ -15,11 +15,11 @@ def create_app(scanner: ScannerModel):
     navbar = build_navbar(*navbar_buttons)
 
     # Полоса загрузки.
-    value_max = len(scanner.available_exchanges())
+    value_max = len(scanner.loaded_exchanges())
     progress_bar = build_progress_bar(value_max=value_max)
 
     # Панель настроек.
-    opts = scanner.available_exchanges()
+    opts = scanner.loaded_exchanges()
     checklist_exchanges = build_checklist('exchanges', 'Выберите биржу', *opts)
     toggle_settings = build_toggle_container('settings', checklist_exchanges)
 
@@ -33,7 +33,8 @@ def create_app(scanner: ScannerModel):
         navbar,
         progress_bar,
         toggle_settings,
-        table
+        table,
+        dcc.Interval(id='loader_interval')
     ])]
 
     # Регистрация обработчиков событий.
