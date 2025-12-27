@@ -3,9 +3,10 @@ import dash_bootstrap_components as dbc
 
 from .components import build_navbar, build_progress_bar, build_checklist, build_toggle_container
 from .callbacks import register_callbacks
+from .scanner_model import ScannerModel
 
 
-def create_app():
+def create_app(scanner: ScannerModel):
     app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
     # Создание элементов.
@@ -14,10 +15,11 @@ def create_app():
     navbar = build_navbar(*navbar_buttons)
 
     # Полоса загрузки.
-    progress_bar = build_progress_bar(value=12, value_max=15)
+    value_max = len(scanner.available_exchanges())
+    progress_bar = build_progress_bar(value_max=value_max)
 
     # Панель настроек.
-    opts = [('bybit', False), ('binance', False)]
+    opts = scanner.available_exchanges()
     checklist_exchanges = build_checklist('exchanges', 'Выберите биржу', *opts)
     toggle_settings = build_toggle_container('settings', checklist_exchanges)
 
@@ -35,6 +37,6 @@ def create_app():
     ])]
 
     # Регистрация обработчиков событий.
-    register_callbacks(app)
+    register_callbacks(app, scanner)
 
     return app
