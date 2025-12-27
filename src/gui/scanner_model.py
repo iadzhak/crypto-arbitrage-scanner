@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 class ScannerModel(ABC):
 
     @abstractmethod
-    def available_exchanges(self) -> tuple[str, bool]:
-        """Список доступных бирж."""
+    def loaded_exchanges(self) -> list[tuple[str, bool]]:
+        """Список загруженных бирж."""
         raise NotImplementedError
 
     @abstractmethod
