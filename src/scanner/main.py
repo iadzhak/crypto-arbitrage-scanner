@@ -5,6 +5,9 @@ class Scanner:
     def __init__(self, exchanges):
         pass
 
+    def get_data(self) -> list[dict]:
+        pass
+
     async def run(self):
         pass
 

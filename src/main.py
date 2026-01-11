@@ -10,7 +10,7 @@ if __name__ == '__main__':
     exchanges = ('bybit', 'mexc')
     # Бэкенд и фронтенд
     backend = Scanner(exchanges)
-    frontend = create_app()
+    frontend = create_app(title, backend.get_data)
     # Запуск
     thread = threading.Thread(target=backend.run_async)
     webview.create_window(title, frontend)
