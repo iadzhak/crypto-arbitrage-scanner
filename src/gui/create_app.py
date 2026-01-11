@@ -5,10 +5,8 @@ import dash_bootstrap_components as dbc
 def create_app(title, get_data):
     app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
     app.layout = [
-        dbc.Container([
-            html.H1(title),
-            dash_table.DataTable(id='table', sort_action='native', ilter_action='native')
-        ], className='mt-3'),
+        dbc.Row(dbc.Col(html.H1(title))),
+        dbc.Row(dbc.Col(dash_table.DataTable(id='table', sort_action='native', filter_action='native'))),
         dcc.Interval(id='interval', interval=2000)
     ]
 

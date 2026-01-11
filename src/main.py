@@ -17,4 +17,5 @@ if __name__ == '__main__':
     thread.start()
     webview.start()
     # Ожидание завершения бэкенда
+    backend.stop()
     thread.join()
